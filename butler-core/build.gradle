@@ -1,0 +1,22 @@
+plugins {
+    id "com.adtran.scala-multiversion-plugin" version "1.0.30"
+}
+
+apply plugin: 'scala'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+archivesBaseName='butler-core'
+
+apply from: 'publish.gradle'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'io.othree:dna_%%:1.0.+'
+    compile "org.scala-lang:scala-library:%scala-version%"
+    compile "com.typesafe.scala-logging:scala-logging_%%:3.9.+"
+    testCompile(group: 'io.othree', name: 'a-ok_%%', version: "1.+")
+}

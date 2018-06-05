@@ -1,0 +1,5 @@
+rootProject.name = 'butler'
+include 'butler-service'
+include 'butler-client'
+include 'butler-core'
+

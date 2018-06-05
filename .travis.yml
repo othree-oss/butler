@@ -1,0 +1,15 @@
+language: java
+before_cache:
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+deploy:
+  provider: script
+  script: "./gradlew uploadArchives -PossrhPassword=${OSS_PASSWORD} -PossrhUsername=${OSS_USERNAME}
+    -Psigning.password=${SIGNING_PASSWORD} -Psigning.keyId=${SIGNING_KEY_ID}"
+  skip_cleanup: true
+  on:
+    branch: 1.0

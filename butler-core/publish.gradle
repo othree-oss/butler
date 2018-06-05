@@ -1,0 +1,66 @@
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+def isDeployable = hasProperty("ossrhUsername") &&
+        hasProperty("ossrhPassword")
+
+if (isDeployable) {
+    signing {
+        sign configurations.archives
+        required { false }
+    }
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
+
+                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                    authentication(userName: ossrhUsername, password: ossrhPassword)
+                }
+
+                pom.project {
+                    name 'butler-core'
+                    packaging 'jar'
+                    description 'Let him serve you! Core classes for the buttler akka cache service.'
+                    url 'https://github.com/othree-oss/butler'
+
+                    scm {
+                        connection 'https://github.com/othree-oss/butler.git'
+                        url 'https://github.com/othree-oss/butler'
+                    }
+
+                    licenses {
+                        license {
+                            name 'The Apache License, Version 2.0'
+                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id 'othree'
+                            name 'Othree'
+                            email 'oss@othree.io'
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+plugins {
+    id "com.adtran.scala-multiversion-plugin" version "1.0.30"
+}
+
+apply plugin: 'scala'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+archivesBaseName='butler'
+
+apply from: 'publish.gradle'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile(project(':butler-core'))
+    compile 'io.othree:dna_%%:1.0.+'
+    compile "com.typesafe.akka:akka-actor_%%:$akkaVersion"
+    compile "com.typesafe.akka:akka-cluster-tools_%%:$akkaVersion"
+    compile "org.scala-lang:scala-library:%scala-version%"
+    compile "com.typesafe.scala-logging:scala-logging_%%:3.9.+"
+    testCompile(group: 'io.othree', name: 'a-ok_%%', version: "1.+")
+}
