@@ -58,6 +58,7 @@ class ButlerServiceTest extends BaseAkkaTest(ActorSystem("ActorCacheTest")) with
         verify(cacheProvider, times(2)).refreshCache()
 
         butlerService.terminate()
+        expectNoMessage(100 milliseconds)
       }
     }
 
@@ -73,6 +74,7 @@ class ButlerServiceTest extends BaseAkkaTest(ActorSystem("ActorCacheTest")) with
         expectNoMessage()
 
         butlerService.terminate()
+        expectNoMessage(100 milliseconds)
       }
     }
 
@@ -96,6 +98,7 @@ class ButlerServiceTest extends BaseAkkaTest(ActorSystem("ActorCacheTest")) with
         verify(cacheProvider, times(1)).refreshCache()
 
         butlerService.terminate()
+        expectNoMessage(100 milliseconds)
       }
     }
 
@@ -120,6 +123,7 @@ class ButlerServiceTest extends BaseAkkaTest(ActorSystem("ActorCacheTest")) with
         verify(cacheProvider, times(1)).refreshCache()
 
         cacheService.terminate()
+        expectNoMessage(100 milliseconds)
       }
     }
   }
