@@ -21,4 +21,5 @@ dependencies {
     compile "org.scala-lang:scala-library:%scala-version%"
     compile "com.typesafe.scala-logging:scala-logging_%%:3.9.+"
     testCompile(group: 'io.othree', name: 'a-ok_%%', version: "1.+")
+    testCompile(group: 'io.othree', name: 'akka-ok_%%', version: "1.+")
 }
