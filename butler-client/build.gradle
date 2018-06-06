@@ -6,7 +6,7 @@ apply plugin: 'scala'
 apply plugin: 'maven'
 apply plugin: 'signing'
 
-archivesBaseName='butler'
+archivesBaseName='butler-client'
 
 apply from: 'publish.gradle'
 
